@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<move>
+    <name>Attack</name>
+    <effect>
+        <tt>SINGLE_OPPONENT</tt>
+        <type>DAMAGE</type>
+        <success>1</success>
+        <formula>0</formula>
+    </effect>
+</move>

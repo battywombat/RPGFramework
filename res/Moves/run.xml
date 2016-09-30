@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<move>
+    <effect>
+        <tt>NO_TARGET</tt>
+        <type></type>
+    </effect>
+    <name>Run</name>
+</move>

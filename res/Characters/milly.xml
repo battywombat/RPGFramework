@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<character>
+    <name>Milly</name>
+    <moves>
+        <movset name="Fight">
+            <move>attack.xml</move>
+        </movset>
+        <move>run.xml</move>
+    </moves>
+    <strength>3</strength>
+    <vitality>6</vitality>
+    <speed>3</speed>
+</character>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<character>
+    <name>Gerard</name>
+    <moves>
+        <movset name="Fight">
+            <move>attack.xml</move>
+        </movset>
+        <move>run.xml</move>
+    </moves>
+    <strength>6</strength>
+    <vitality>2</vitality>
+    <speed>5</speed>
+</character>
