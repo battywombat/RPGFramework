@@ -1,3 +1,5 @@
+using static RPGFramework.Formulas;
+
 namespace RPGFramework
 {
     public enum TargetType
@@ -11,12 +13,6 @@ namespace RPGFramework
     }
     public abstract class MoveEffect
     {
-        public delegate int SingleTargetFormula(Character caster, Character target);
-        public delegate int NoTargetFormula(Character caster);
-        public delegate int MultipleTargetFormula(Character caster, Character[] targets);
-        public delegate bool NoTargetSuccessFormula(Character caster);
-        public delegate bool SingleTargetSuccessFormula(Character caster, Character target);
-        public delegate bool MultipleTargetSuccessFormula(Character caster, Character[] targets);
 
         protected TargetType _tt;
 

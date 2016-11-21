@@ -1,5 +1,6 @@
 using System.IO;
 using System.Xml;
+using static RPGFramework.Formulas;
 
 namespace RPGFramework
 {
@@ -36,13 +37,13 @@ namespace RPGFramework
             {
                 case "DAMAGE":
                 damageformula = int.Parse(root["formula"].InnerText);
-                MoveEffect.SingleTargetFormula fmla = Formulas.SingleTargetFormulas[damageformula];
+                SingleTargetFormula fmla = Formulas.SingleTargetFormulas[damageformula];
                 successformula = int.Parse(root["success"].InnerText);
-                MoveEffect.SingleTargetSuccessFormula successfmla = Formulas.SuccessFormulas[successformula];
+                SingleTargetSuccessFormula successfmla = SuccessFormulas[successformula];
                 return new DamageEffect(tt, fmla, successfmla, ev);
                 case "ESCAPE":
                 successformula = int.Parse(root["success"].InnerText);
-                MoveEffect.NoTargetSuccessFormula escapefmla = Formulas.NoTargetSuccessFormulas[successformula];
+                NoTargetSuccessFormula escapefmla = NoTargetSuccessFormulas[successformula];
                 return new EscapeEffect(escapefmla, ev);
                 default:
                 return null;

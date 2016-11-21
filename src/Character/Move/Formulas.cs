@@ -4,6 +4,13 @@ namespace RPGFramework
 {
     public class Formulas
     {
+        public delegate int SingleTargetFormula(Character caster, Character target);
+        public delegate int NoTargetFormula(Character caster);
+        public delegate int MultipleTargetFormula(Character caster, Character[] targets);
+        public delegate bool NoTargetSuccessFormula(Character caster);
+        public delegate bool SingleTargetSuccessFormula(Character caster, Character target);
+        public delegate bool MultipleTargetSuccessFormula(Character caster, Character[] targets);
+
         public static bool NeverHitFormula(Character c1, Character c2) { return false; }
 
         public static bool PhysHitFormula(Character c1, Character c2)
@@ -24,19 +31,19 @@ namespace RPGFramework
             return c.Speed > new Random().Next(0, 13);
         }
 
-        public static MoveEffect.SingleTargetSuccessFormula[] SuccessFormulas = new MoveEffect.SingleTargetSuccessFormula[]
+        public static SingleTargetSuccessFormula[] SuccessFormulas = new SingleTargetSuccessFormula[]
         {
             NeverHitFormula,
             PhysHitFormula
         };
 
-        public static MoveEffect.SingleTargetFormula[] SingleTargetFormulas = new MoveEffect.SingleTargetFormula[]
+        public static SingleTargetFormula[] SingleTargetFormulas = new SingleTargetFormula[]
         {
             ZeroDamageFormula,
             AttackDamageFormula
         };
 
-        public static MoveEffect.NoTargetSuccessFormula[] NoTargetSuccessFormulas = new MoveEffect.NoTargetSuccessFormula[]
+        public static NoTargetSuccessFormula[] NoTargetSuccessFormulas = new NoTargetSuccessFormula[]
         {
             EscapeFormula
         };
