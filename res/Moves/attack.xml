@@ -2,6 +2,15 @@
 <move>
     <name>Attack</name>
     <effect>
+        <event>
+            <message>%c attacks!</message>
+            <onhit>
+            %t hit for %d damage
+            </onhit>
+            <onmiss>
+            %c misses!
+            </onmiss>
+        </event>
         <tt>SINGLE_OPPONENT</tt>
         <type>DAMAGE</type>
         <success>1</success>

@@ -7,6 +7,7 @@
         </movset>
         <move>run.xml</move>
     </moves>
+    <hp>5</hp>
     <strength>6</strength>
     <vitality>2</vitality>
     <speed>5</speed>

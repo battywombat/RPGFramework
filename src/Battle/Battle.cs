@@ -4,30 +4,40 @@ namespace RPGFramework
 {
     public class Battle
     {
-        public List<Character> playerParty;
-        public List<Character> enemyParty;
-        public List<MoveIntent> turnOrder;
+        bool _ended;
+        public List<Character> PlayerParty;
+        public List<Character> EnemyParty;
+        public List<MoveIntent> TurnOrder;
         TurnProvider turnProvider;
         public Battle(Character[] playerParty, Character[] enemyParty, TurnProvider turnProvider)
         {
-            this.playerParty = new List<Character>(playerParty);
-            this.enemyParty = new List<Character>(enemyParty);
+            this.PlayerParty = new List<Character>(playerParty);
+            this.EnemyParty = new List<Character>(enemyParty);
             this.turnProvider = turnProvider;
             this.turnProvider.CurrentBattle = this;
-            turnOrder = new List<MoveIntent>();
+            TurnOrder = new List<MoveIntent>();
+            _ended = false;
         }
 
         public void start()
         {
-            while (!isEnded())
+            while (!Ended)
             {
                 this.turnProvider.doNextAction();
             }
         }
-        bool isEnded()
+
+        bool Ended
         {
-            return false;
-            // throw new NotImplementedException();
+            get 
+            {
+                return _ended;
+            }
+        }
+
+        public void Escape()
+        {
+            _ended = true;
         }
     }
 }

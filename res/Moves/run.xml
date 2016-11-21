@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <move>
-    <effect>
-        <tt>NO_TARGET</tt>
-        <type></type>
-    </effect>
     <name>Run</name>
+    <effect>
+        <event>
+            <message>%c attempts to run away!</message>
+            <onhit>%c escapes</onhit>
+            <onmiss>...but %c couldn't get away!</onmiss>
+        </event>
+        <tt>NO_TARGET</tt>
+        <type>ESCAPE</type>
+        <success>0</success>
+    </effect>
 </move>

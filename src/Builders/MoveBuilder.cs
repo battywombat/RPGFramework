@@ -7,9 +7,12 @@ namespace RPGFramework
     {
         public string Root { get; set; }
 
+        GameEventBuilder eventBuilder;
+
         public MoveBuilder(string root="")
         {
             Root = root;
+            eventBuilder = new GameEventBuilder();
         }
         public Move buildFromXml(string filepath)
         {
@@ -20,25 +23,30 @@ namespace RPGFramework
         public Move buildFromXmlNode(XmlNode root)
         {
             string name = root["name"].InnerText;
-            return new Move(name, buildEffect(root["effect"]));
+            MoveEffect effect = buildEffect(root["effect"]);
+            return new Move(name, effect);
         }
 
         private MoveEffect buildEffect(XmlNode root)
         {
             TargetType tt = (TargetType)System.Enum.Parse(typeof(TargetType), root["tt"].InnerText);
+            MoveEvent ev = root["event"] == null ? null : eventBuilder.BuildMoveEventFromXml(root["event"]);
+            int successformula, damageformula;
             switch(root["type"].InnerText)
             {
                 case "DAMAGE":
-                int dmgformula = int.Parse(root["formula"].InnerText);
-                MoveEffect.SingleTargetFormula fmla = Formulas.SingleTargetFormulas[dmgformula];
-                int successformula = int.Parse(root["success"].InnerText);
+                damageformula = int.Parse(root["formula"].InnerText);
+                MoveEffect.SingleTargetFormula fmla = Formulas.SingleTargetFormulas[damageformula];
+                successformula = int.Parse(root["success"].InnerText);
                 MoveEffect.SingleTargetSuccessFormula successfmla = Formulas.SuccessFormulas[successformula];
-                DamageEffect effect = new DamageEffect(tt, fmla, successfmla);
-                return effect;
+                return new DamageEffect(tt, fmla, successfmla, ev);
+                case "ESCAPE":
+                successformula = int.Parse(root["success"].InnerText);
+                MoveEffect.NoTargetSuccessFormula escapefmla = Formulas.NoTargetSuccessFormulas[successformula];
+                return new EscapeEffect(escapefmla, ev);
                 default:
                 return null;
             }
         }
-
     }
 }

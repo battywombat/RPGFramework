@@ -17,10 +17,16 @@ namespace RPGFramework
         Character selectCharacter(Character[] characters);
 
         /// <summary>
-        /// Display the given move on the interface.
+        /// Request that a given GameEvent is displayed on the interface
         /// </summary>
-        /// <param name="m">The move intent carrying all information about the move</param>
-        void ExecuteMove(MoveIntent m);
+        /// <param name="m"></param>
+        void RequestEventDisplay(GameEvent m);
+        
+        /// <summary>
+        /// Request that a given MoveEvent is displayed on the interface
+        /// </summary>
+        /// <param name="m"></param>
+        void RequestMoveEventDisplay(MoveEvent m, Character caster, Character target, bool didHit, int damage);
     }
     class Frontend
     {

@@ -8,16 +8,6 @@ namespace RPGFramework
         int MovePriority { get; }
     }
 
-    public class MoveResponse
-    {
-        public string[] Message;
-
-        public MoveResponse(string[] message)
-        {
-            Message = message;
-        }
-    }
-
     public class NullMoveIntent : MoveIntent
     {
         public int MovePriority
@@ -33,13 +23,14 @@ namespace RPGFramework
 
     public class NoTargetIntent : MoveIntent
     {
+        Battle _context;
         Character _caster;
         Move _theMove;
-        public NoTargetIntent(Character caster, Move theMove)
+        public NoTargetIntent(Character caster, Move theMove, Battle context)
         {
+            _context = context;
             _caster = caster;
             _theMove = theMove;
-
         }
 
         public int MovePriority
@@ -49,7 +40,7 @@ namespace RPGFramework
 
         public void doMove()
         {
-            throw new NotImplementedException();
+            _theMove.Execute(_caster, _context);
         }
     }
 

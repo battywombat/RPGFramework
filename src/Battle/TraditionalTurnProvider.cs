@@ -5,30 +5,30 @@ namespace RPGFramework
     public class TraditionalTurnProvider : TurnProvider
     {
 
-        List<Character> allCharacters;
-        List<Character> needMoveCharacters;
+        List<Character> _allCharacters;
+        List<Character> _needMoveCharacters;
 
         public override Battle CurrentBattle
         { 
             set
             {
                 currentBattle = value;
-                allCharacters.Clear();
-                needMoveCharacters.Clear();
-                allCharacters.AddRange(currentBattle.playerParty);
-                allCharacters.AddRange(currentBattle.enemyParty);
-                needMoveCharacters.AddRange(allCharacters);
+                _allCharacters.Clear();
+                _needMoveCharacters.Clear();
+                _allCharacters.AddRange(currentBattle.PlayerParty);
+                _allCharacters.AddRange(currentBattle.EnemyParty);
+                _needMoveCharacters.AddRange(_allCharacters);
             }
         }
 
         public TraditionalTurnProvider()
         {
-            allCharacters = new List<Character>();
-            needMoveCharacters = new List<Character>();
+            _allCharacters = new List<Character>();
+            _needMoveCharacters = new List<Character>();
         }
         public override void doNextAction()
         {
-            if (needMoveCharacters.Count == 0)
+            if (_needMoveCharacters.Count == 0)
             {
                 doNextMove();
             }
@@ -36,28 +36,28 @@ namespace RPGFramework
             {
                 getNextMove();
             }
-            if (currentBattle.turnOrder.Count == 0)
+            if (currentBattle.TurnOrder.Count == 0)
             {
-                needMoveCharacters.AddRange(allCharacters);
+                _needMoveCharacters.AddRange(_allCharacters);
             }
         }
 
         private void doNextMove()
         {
-            MoveIntent nextMove = currentBattle.turnOrder[0];
+            MoveIntent nextMove = currentBattle.TurnOrder[0];
             nextMove.doMove();
-            currentBattle.turnOrder.Remove(nextMove);
+            currentBattle.TurnOrder.Remove(nextMove);
         }
 
         private void getNextMove()
         {
-            Character currentChar = needMoveCharacters[0];
+            Character currentChar = _needMoveCharacters[0];
             MoveIntent m = currentChar.getMove(CurrentBattle);
-            currentBattle.turnOrder.Add(m);
-            needMoveCharacters.RemoveAt(0);
-            if (needMoveCharacters.Count == 0)
+            currentBattle.TurnOrder.Add(m);
+            _needMoveCharacters.RemoveAt(0);
+            if (_needMoveCharacters.Count == 0)
             {
-                currentBattle.turnOrder.Sort((m1, m2) =>  m1.MovePriority - m2.MovePriority);
+                currentBattle.TurnOrder.Sort((m1, m2) =>  m1.MovePriority - m2.MovePriority);
             }
         }
     }

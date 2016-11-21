@@ -5,7 +5,7 @@ namespace RPGFramework
     {
         public static void Main(string[] args)
         {
-            MoveBuilder mbuilder = new MoveBuilder("res/moves/");
+            MoveBuilder mbuilder = new MoveBuilder("res/Moves/");
             CharacterBuilder cbuilder = new CharacterBuilder("res/Characters/");
             cbuilder.MoveBuilder = mbuilder;
             Character[] pside = new Character[] { cbuilder.buildFromXml("milly.xml", new PlayerMoveProvider()) };

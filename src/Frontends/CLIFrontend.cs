@@ -96,9 +96,21 @@ namespace RPGFramework
             return opts;
         }
 
-        public void ExecuteMove(MoveIntent m)
+        public void RequestEventDisplay(GameEvent m)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(m.Message);
+        }
+
+        public void RequestMoveEventDisplay(MoveEvent m, Character caster, Character target, bool didHit, int damage)
+        {
+            string completeMessage = m.Message.Replace("%c", caster.Name).Replace("%t", target == null ? "" : target.Name);
+            string completeOnHit = m.OnHit.Replace("%c", caster.Name).Replace("%t", target == null ? "" : target.Name).Replace("%d", damage.ToString());
+            string completeOnMiss = m.OnMiss.Replace("%c", caster.Name).Replace("%t", target == null ? "" : target.Name);
+            Console.WriteLine(completeMessage);
+            if (didHit)
+                Console.WriteLine(completeOnHit);
+            else
+                Console.WriteLine(completeOnMiss);
         }
     }
 }

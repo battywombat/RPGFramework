@@ -20,6 +20,8 @@ namespace RPGFramework
 
         protected TargetType _tt;
 
+        protected MoveEvent _response;
+
         public TargetType tt { get { return _tt; }}
 
         public abstract void doEffect(Character caster, Battle b, Character target);
@@ -32,18 +34,50 @@ namespace RPGFramework
 
         SingleTargetFormula _damageformula;
 
-        public DamageEffect(TargetType tt, SingleTargetFormula damageFormula, SingleTargetSuccessFormula hitFormula)
+        public DamageEffect(TargetType tt, SingleTargetFormula damageFormula, SingleTargetSuccessFormula hitFormula, MoveEvent response)
         {
+            _response = response;
             _tt = tt;
             _hitFormula = hitFormula;
             _damageformula = damageFormula;
+            _response = response;
         }
 
         public override void doEffect(Character caster, Battle b, Character target)
         {
             if (_hitFormula(caster, target))
             {
-                // do stuff here       
+                int damage = _damageformula(caster, target);
+                target.RemainingHP -= damage;
+                Frontend.Instance.RequestMoveEventDisplay(_response, caster, target, true, damage);
+            }
+            else 
+            {
+                Frontend.Instance.RequestMoveEventDisplay(_response, caster, target, false , 0);
+            }
+        }
+    }
+
+
+    public class EscapeEffect : MoveEffect
+    {
+        NoTargetSuccessFormula _success;
+
+        public EscapeEffect(NoTargetSuccessFormula success, MoveEvent response)
+        {
+            _success = success;
+            _response = response;
+        }
+        public override void doEffect(Character caster, Battle b, Character target)
+        {
+            if (_success(caster))
+            {
+                Frontend.Instance.RequestMoveEventDisplay(_response, caster, null, true, 0);
+                b.Escape();
+            }
+            else 
+            {
+                Frontend.Instance.RequestMoveEventDisplay(_response, caster, null, false, 0);
             }
         }
     }

@@ -45,6 +45,7 @@ namespace RPGFramework
             stats["speed"] = int.Parse(root["speed"].InnerText);
             stats["strength"] = int.Parse(root["strength"].InnerText);
             stats["vitality"] = int.Parse(root["vitality"].InnerText);
+            stats["hp"] = int.Parse(root["hp"].InnerText);
             return new Character(provider, moveroot, name, stats);
         }
 

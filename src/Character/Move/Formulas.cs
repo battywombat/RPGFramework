@@ -19,6 +19,11 @@ namespace RPGFramework
             return c1.Strength*r.Next(1,3)-c1.Vitality;
         }
 
+        public static bool EscapeFormula(Character c)
+        {
+            return c.Speed > new Random().Next(0, 13);
+        }
+
         public static MoveEffect.SingleTargetSuccessFormula[] SuccessFormulas = new MoveEffect.SingleTargetSuccessFormula[]
         {
             NeverHitFormula,
@@ -29,6 +34,11 @@ namespace RPGFramework
         {
             ZeroDamageFormula,
             AttackDamageFormula
+        };
+
+        public static MoveEffect.NoTargetSuccessFormula[] NoTargetSuccessFormulas = new MoveEffect.NoTargetSuccessFormula[]
+        {
+            EscapeFormula
         };
 
     }

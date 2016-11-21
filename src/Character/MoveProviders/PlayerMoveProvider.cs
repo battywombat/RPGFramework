@@ -17,13 +17,13 @@ namespace RPGFramework
 
         public Character selectSingleAlly(Character c, Move m, Battle b)
         {
-           Character[] selection =  b.enemyParty.Contains(c) ? b.enemyParty.ToArray() : b.playerParty.ToArray();
+           Character[] selection =  b.EnemyParty.Contains(c) ? b.EnemyParty.ToArray() : b.PlayerParty.ToArray();
             return Frontend.Instance.selectCharacter(selection);
         }
 
         public Character selectSingleOpponent(Character c, Move m, Battle b)
         {
-            Character[] selection = b.enemyParty.Contains(c) ? b.playerParty.ToArray() : b.enemyParty.ToArray();
+            Character[] selection = b.EnemyParty.Contains(c) ? b.PlayerParty.ToArray() : b.EnemyParty.ToArray();
             return Frontend.Instance.selectCharacter(selection);
         }
 
@@ -33,7 +33,7 @@ namespace RPGFramework
             switch(m.tt)
             {
                 case TargetType.NO_TARGET:
-                return new NoTargetIntent(c, m);
+                return new NoTargetIntent(c, m, b);
                 case TargetType.SINGLE_ALLY:
                 target = selectSingleAlly(c, m, b);
                 return (target == null ? null : new SingleTargetIntent(b, c, m, target));

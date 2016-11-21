@@ -41,6 +41,10 @@ namespace RPGFramework
             {
                 return _hp.RemainingValue;
             }
+            set
+            {
+                _hp.RemainingValue = value;
+            }
         }
 
         public int HP
