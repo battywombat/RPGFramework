@@ -62,20 +62,20 @@ namespace RPGFramework
             }
         }
 
-        public Character(MoveProvider mprovider, MoveSet mset, string name, Dictionary<string, int> stats) : this(mprovider, mset)
+        public MoveProvider MProvider
         {
+            get { return _mprovider; }
+        }
+
+        public Character(MoveProvider mprovider, MoveSet mset, string name, Dictionary<string, int> stats)
+        {
+            _mprovider = mprovider;
+            _mset = mset;
             _hp = new DepleteableStat(stats["hp"]);
             _strength = new Stat(stats["strength"]);
             _speed = new Stat(stats["speed"]);
             _vitality = new Stat(stats["vitality"]);
             _name = name;
-        }
-
-        public Character(MoveProvider mprovider, MoveSet mset)
-        {
-            _mprovider = mprovider;
-            _mset = mset;
-            _name = null;
         }
 
         public MoveIntent getMove(Battle b)
